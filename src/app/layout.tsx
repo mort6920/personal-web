@@ -5,6 +5,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { OWNER_NAME, SITE_URL, SOCIAL_LINKS } from "@/lib/constants";
 import { profile } from "@/data/profile";
 import { Analytics } from "@vercel/analytics/next";
+import { MusicProvider } from "@/context/MusicContext";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -85,9 +86,11 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full bg-[var(--color-bg)] text-[var(--color-text-primary)]">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <MusicProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </MusicProvider>
       </body>
     </html>
   );

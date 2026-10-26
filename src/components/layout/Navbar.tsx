@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { profile } from "@/data/profile";
 import { useScrollNavbar } from "@/hooks/useScrollNavbar";
+import { useMusic } from "@/context/MusicContext";
 import styles from "./NavbarLoader.module.css";
 
 function isActivePath(pathname: string, href: string) {
@@ -37,21 +38,40 @@ export function Navbar() {
   const capsuleWidth = isScrolled ? "min(700px, calc(100% - 32px))" : "100%";
   const capsuleRadius = capsuleWidth === "100%" ? "0px" : "999px";
 
-  useEffect(() => {
-    let isMounted = true;
+  const { startAudio } = useMusic();
 
-    // Phase 1: Keep fullscreen with logo + flashing dots for 450ms
-    const timer = window.setTimeout(() => {
-      if (!isMounted) return;
-      setHasBootWaitCompleted(true);
-      setBootPhase("capsule");
-    }, 450);
+  const handleTapToEnter = useCallback(() => {
+    if (bootPhase !== "loading") return;
+
+    // Putar lagu saat pengguna mengetuk layar
+    startAudio();
+
+    // Jalankan animasi transisi logo dan navbar
+    setHasBootWaitCompleted(true);
+    setBootPhase("capsule");
+  }, [bootPhase, startAudio]);
+
+  useEffect(() => {
+    if (bootPhase !== "loading") return;
+
+    const handleEvent = () => {
+      handleTapToEnter();
+    };
+
+    window.addEventListener("click", handleEvent, { once: true });
+    window.addEventListener("pointerdown", handleEvent, { once: true });
+    window.addEventListener("touchend", handleEvent, { once: true });
+    window.addEventListener("touchstart", handleEvent, { once: true });
+    window.addEventListener("keydown", handleEvent, { once: true });
 
     return () => {
-      isMounted = false;
-      window.clearTimeout(timer);
+      window.removeEventListener("click", handleEvent);
+      window.removeEventListener("pointerdown", handleEvent);
+      window.removeEventListener("touchend", handleEvent);
+      window.removeEventListener("touchstart", handleEvent);
+      window.removeEventListener("keydown", handleEvent);
     };
-  }, []);
+  }, [bootPhase, handleTapToEnter]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -102,10 +122,11 @@ export function Navbar() {
           transform: "translateZ(0)",
           willChange: "transform, width, height, border-radius",
         }}
+        onClick={isLoadingPhase ? handleTapToEnter : undefined}
         className={cn(
           "relative mx-auto flex flex-col items-center justify-between border",
           isNormalPhase ? "overflow-visible" : "overflow-hidden",
-          isLoadingPhase && "z-[70]",
+          isLoadingPhase && "z-[70] cursor-pointer select-none",
           "border-[var(--color-border)]",
           isNormalPhase ? "bg-[var(--color-surface)]/80" : "bg-[var(--color-surface)]",
           "transition-[box-shadow,backdrop-filter] duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]",
@@ -135,12 +156,12 @@ export function Navbar() {
                 className="h-8 w-auto object-contain"
               />
               {isLoadingPhase ? (
-                <span
-                  className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 translate-y-11"
-                  aria-hidden="true"
-                >
+                <div className="absolute left-1/2 top-1/2 z-30 flex -translate-x-1/2 translate-y-11 flex-col items-center gap-2.5">
                   <span className={styles.loader} />
-                </span>
+                  <span className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-text-secondary)] animate-pulse select-none">
+                    tap anywhere
+                  </span>
+                </div>
               ) : null}
             </motion.div>
           ) : null}

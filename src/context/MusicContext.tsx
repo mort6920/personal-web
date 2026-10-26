@@ -11,6 +11,8 @@ import React, {
 } from "react";
 import { ENTOMBED_LYRICS, LyricLine, Track, TRACKLIST } from "@/data/music";
 
+const STORAGE_KEY = "wndr_audio_preference";
+
 interface MusicContextType {
   isPlaying: boolean;
   currentTime: number;
@@ -19,6 +21,7 @@ interface MusicContextType {
   currentLyricIndex: number;
   activeLyricText: string;
   lyrics: LyricLine[];
+  startAudio: () => Promise<void>;
   togglePlay: () => void;
   playTrack: (track: Track) => void;
   pauseTrack: () => void;
@@ -35,6 +38,33 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const userPausedRef = useRef<boolean>(false);
 
+  // Baca preferensi tersimpan di localStorage saat mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (typeof parsed.userPaused === "boolean") {
+          userPausedRef.current = parsed.userPaused;
+        }
+      }
+    } catch {
+      // Abaikan jika localStorage tidak diizinkan
+    }
+  }, []);
+
+  const savePreference = useCallback((paused: boolean) => {
+    userPausedRef.current = paused;
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ userPaused: paused, lastUpdated: Date.now() })
+      );
+    } catch {
+      // Abaikan jika localStorage tidak tersedia
+    }
+  }, []);
+
   const lyrics = useMemo<LyricLine[]>(() => {
     return ENTOMBED_LYRICS;
   }, []);
@@ -42,6 +72,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const currentLyricIndex = 0;
   const activeLyricText = "...";
 
+  // Event listener audio HTML5
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -74,72 +105,40 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // Aggressive instant autoplay execution
-  useEffect(() => {
+  // Dipanggil saat pengguna melakukan "tap anywhere" pada loading screen
+  const startAudio = useCallback(() => {
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio) return Promise.resolve();
 
-    let unlocked = false;
+    savePreference(false);
+    if (!audio.src || audio.src === "") {
+      audio.src = currentTrack.audioSrc || "/song/entombed 2.mp3";
+    }
+    audio.volume = 0.8;
 
-    const tryAutoplay = () => {
-      if (userPausedRef.current || unlocked) return;
-      const promise = audio.play();
-      if (promise !== undefined) {
-        promise
-          .then(() => {
-            unlocked = true;
-            setIsPlaying(true);
-            cleanup();
-          })
-          .catch(() => {
-            // Browser autoplay policy requires user gesture; await interaction
-          });
-      }
-    };
-
-    const handleInteraction = () => {
-      if (userPausedRef.current) {
-        cleanup();
-        return;
-      }
-      tryAutoplay();
-    };
-
-    const cleanup = () => {
-      window.removeEventListener("click", handleInteraction);
-      window.removeEventListener("keydown", handleInteraction);
-      window.removeEventListener("touchstart", handleInteraction);
-      window.removeEventListener("touchend", handleInteraction);
-      window.removeEventListener("pointerdown", handleInteraction);
-      window.removeEventListener("scroll", handleInteraction);
-      window.removeEventListener("visibilitychange", handleInteraction);
-    };
-
-    // Execute immediately on page load
-    tryAutoplay();
-
-    // In case browser policy temporarily deferred it, listen for any interaction
-    window.addEventListener("click", handleInteraction, { once: true, passive: true });
-    window.addEventListener("keydown", handleInteraction, { once: true, passive: true });
-    window.addEventListener("touchstart", handleInteraction, { once: true, passive: true });
-    window.addEventListener("touchend", handleInteraction, { once: true, passive: true });
-    window.addEventListener("pointerdown", handleInteraction, { once: true, passive: true });
-    window.addEventListener("scroll", handleInteraction, { once: true, passive: true });
-    document.addEventListener("visibilitychange", handleInteraction, { once: true, passive: true });
-
-    return cleanup;
-  }, []);
+    const promise = audio.play();
+    if (promise !== undefined) {
+      return promise
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((err) => {
+          console.warn("Audio play blocked by browser policy:", err);
+        });
+    }
+    return Promise.resolve();
+  }, [currentTrack.audioSrc, savePreference]);
 
   const togglePlay = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     if (!audio.paused) {
-      userPausedRef.current = true;
+      savePreference(true);
       audio.pause();
       setIsPlaying(false);
     } else {
-      userPausedRef.current = false;
+      savePreference(false);
       const promise = audio.play();
       if (promise !== undefined) {
         promise
@@ -151,7 +150,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
           });
       }
     }
-  }, []);
+  }, [savePreference]);
 
   const playTrack = useCallback(
     (track: Track) => {
@@ -167,20 +166,23 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       if (track.audioSrc) {
         audio.src = track.audioSrc;
         audio.currentTime = 0;
-        userPausedRef.current = false;
-        audio.play().then(() => setIsPlaying(true)).catch((err) => {
-          console.warn("Audio play error:", err);
-        });
+        savePreference(false);
+        audio
+          .play()
+          .then(() => setIsPlaying(true))
+          .catch((err) => {
+            console.warn("Audio play error:", err);
+          });
       }
     },
-    [currentTrack.id, togglePlay]
+    [currentTrack.id, togglePlay, savePreference]
   );
 
   const pauseTrack = useCallback(() => {
-    userPausedRef.current = true;
+    savePreference(true);
     audioRef.current?.pause();
     setIsPlaying(false);
-  }, []);
+  }, [savePreference]);
 
   const seekTo = useCallback((seconds: number) => {
     const audio = audioRef.current;
@@ -198,6 +200,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       currentLyricIndex,
       activeLyricText,
       lyrics,
+      startAudio,
       togglePlay,
       playTrack,
       pauseTrack,
@@ -211,6 +214,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
       currentLyricIndex,
       activeLyricText,
       lyrics,
+      startAudio,
       togglePlay,
       playTrack,
       pauseTrack,
@@ -222,8 +226,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     <MusicContext.Provider value={value}>
       <audio
         ref={audioRef}
-        src={currentTrack.audioSrc || "/song/entombed.mp3"}
-        autoPlay
+        src={currentTrack.audioSrc || "/song/entombed 2.mp3"}
         playsInline
         preload="auto"
       />
@@ -232,10 +235,22 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
+const defaultMusicContext: MusicContextType = {
+  isPlaying: false,
+  currentTime: 0,
+  duration: 0,
+  currentTrack: TRACKLIST[0],
+  currentLyricIndex: 0,
+  activeLyricText: "...",
+  lyrics: ENTOMBED_LYRICS,
+  startAudio: () => Promise.resolve(),
+  togglePlay: () => {},
+  playTrack: () => {},
+  pauseTrack: () => {},
+  seekTo: () => {},
+};
+
 export function useMusic() {
   const context = useContext(MusicContext);
-  if (!context) {
-    throw new Error("useMusic must be used within a MusicProvider");
-  }
-  return context;
+  return context || defaultMusicContext;
 }
