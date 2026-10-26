@@ -105,16 +105,43 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  // Dipanggil saat pengguna melakukan "tap anywhere" pada loading screen
+  // Dipanggil saat pengguna melakukan "tap anywhere" pada loading screen atau interaksi di mobile
   const startAudio = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return Promise.resolve();
 
+    userPausedRef.current = false;
     savePreference(false);
-    if (!audio.src || audio.src === "") {
-      audio.src = currentTrack.audioSrc || "/song/entombed 2.mp3";
+
+    // Buka kunci AudioContext untuk mesin audio browser mobile
+    if (typeof window !== "undefined") {
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (AudioCtx) {
+        try {
+          const ctx = new AudioCtx();
+          if (ctx.state === "suspended") {
+            ctx.resume().catch(() => {});
+          }
+        } catch {}
+      }
     }
-    audio.volume = 0.8;
+
+    const targetSrc = currentTrack.audioSrc || "/song/entombed-2.mp3";
+    if (!audio.src || !audio.src.includes("entombed")) {
+      audio.src = targetSrc;
+    }
+
+    try {
+      audio.volume = 0.8;
+    } catch {}
+
+    try {
+      if (audio.readyState === 0) {
+        audio.load();
+      }
+    } catch {}
 
     const promise = audio.play();
     if (promise !== undefined) {
@@ -128,6 +155,24 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     }
     return Promise.resolve();
   }, [currentTrack.audioSrc, savePreference]);
+
+  // Listener interaksi global di mobile: jika lagu belum berjalan, sentuhan/klik berikutnya akan memutar
+  useEffect(() => {
+    if (isPlaying) return;
+
+    const handleGlobalUnlock = () => {
+      if (userPausedRef.current) return;
+      startAudio();
+    };
+
+    window.addEventListener("click", handleGlobalUnlock, { passive: true });
+    window.addEventListener("touchend", handleGlobalUnlock, { passive: true });
+
+    return () => {
+      window.removeEventListener("click", handleGlobalUnlock);
+      window.removeEventListener("touchend", handleGlobalUnlock);
+    };
+  }, [isPlaying, startAudio]);
 
   const togglePlay = useCallback(() => {
     const audio = audioRef.current;
@@ -226,7 +271,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     <MusicContext.Provider value={value}>
       <audio
         ref={audioRef}
-        src={currentTrack.audioSrc || "/song/entombed 2.mp3"}
+        src={currentTrack.audioSrc || "/song/entombed-2.mp3"}
         playsInline
         preload="auto"
       />

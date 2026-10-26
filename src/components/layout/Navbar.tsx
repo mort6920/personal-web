@@ -59,16 +59,12 @@ export function Navbar() {
     };
 
     window.addEventListener("click", handleEvent, { once: true });
-    window.addEventListener("pointerdown", handleEvent, { once: true });
     window.addEventListener("touchend", handleEvent, { once: true });
-    window.addEventListener("touchstart", handleEvent, { once: true });
     window.addEventListener("keydown", handleEvent, { once: true });
 
     return () => {
       window.removeEventListener("click", handleEvent);
-      window.removeEventListener("pointerdown", handleEvent);
       window.removeEventListener("touchend", handleEvent);
-      window.removeEventListener("touchstart", handleEvent);
       window.removeEventListener("keydown", handleEvent);
     };
   }, [bootPhase, handleTapToEnter]);
@@ -123,6 +119,7 @@ export function Navbar() {
           willChange: "transform, width, height, border-radius",
         }}
         onClick={isLoadingPhase ? handleTapToEnter : undefined}
+        onTouchEnd={isLoadingPhase ? handleTapToEnter : undefined}
         className={cn(
           "relative mx-auto flex flex-col items-center justify-between border",
           isNormalPhase ? "overflow-visible" : "overflow-hidden",
