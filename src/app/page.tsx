@@ -5,6 +5,8 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { ProjectsPreviewSection } from "@/components/sections/ProjectsPreviewSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 
+export const revalidate = 300;
+
 export default function Home() {
   return (
     <>

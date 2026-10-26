@@ -43,10 +43,8 @@ export const STATIC_STATS = {
   certificates: "99%",
 } as const;
 
-const activateGithubStat = process.env.NODE_ENV === "production";
-
 export async function getStatTicker() {
-  const commitCount = activateGithubStat ? await fetchGithubCommit() : 100;
+  const commitCount = await fetchGithubCommit();
 
   return [
     {

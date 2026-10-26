@@ -5,6 +5,7 @@ import { profile } from "@/data/profile";
 import { StatTickerIcon } from "@/types";
 import { ReactNode } from "react";
 import Image from "next/image";
+import { GithubCommitCounter } from "@/components/ui/GithubCommitCounter";
 import { FiActivity, FiCode, FiFolder, FiGitCommit } from "react-icons/fi";
 
 const statIconClassName = "h-4 w-4 text-[var(--color-accent)]";
@@ -38,9 +39,13 @@ export async function AboutSection() {
                 <div className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-accent-dim)]">
                   {STAT_ICON_MAP[fact.icon]}
                 </div>
-                <p className="font-mono text-lg uppercase tracking-[0.08em] text-[var(--color-text-primary)] transition-colors duration-200 group-hover:text-[#ff2b3d]">
-                  {fact.value}
-                </p>
+                {fact.id === "commits" ? (
+                  <GithubCommitCounter initialCount={fact.value} />
+                ) : (
+                  <p className="font-mono text-lg uppercase tracking-[0.08em] text-[var(--color-text-primary)] transition-colors duration-200 group-hover:text-[#ff2b3d]">
+                    {fact.value}
+                  </p>
+                )}
                 <p className="mt-2 text-sm text-[var(--color-text-secondary)] transition-colors duration-200 group-hover:text-[#ffffffff]">
                   {fact.description}
                 </p>
