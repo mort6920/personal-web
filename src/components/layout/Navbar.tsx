@@ -197,7 +197,7 @@ export function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "relative rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-[var(--color-text-secondary)] transition-colors duration-150 hover:text-[#b82633]",
+                    "relative rounded-full px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-[var(--color-text-secondary)] transition-colors duration-150 hover:text-[#ff2b3d]",
                     active && "text-[var(--color-text-primary)] hover:text-[#ff2b3d]",
                   )}
                 >
@@ -260,7 +260,7 @@ export function Navbar() {
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
                     className={cn(
-                      "flex min-h-[44px] items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-4 font-mono text-xs uppercase tracking-[0.16em] text-[var(--color-text-secondary)] transition-colors duration-150 hover:text-[#b82633]",
+                      "flex min-h-[44px] items-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-4 font-mono text-xs uppercase tracking-[0.16em] text-[var(--color-text-secondary)] transition-colors duration-150 hover:text-[#ff2b3d]",
                       active &&
                       "border-[var(--color-border-hover)] bg-[var(--color-accent-dim)] text-[var(--color-accent)] hover:text-[#ff2b3d]",
                     )}
