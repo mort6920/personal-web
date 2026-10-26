@@ -1,0 +1,91 @@
+"use client";
+
+import Link, { useLinkStatus } from "next/link";
+import { cn } from "@/lib/utils";
+
+type ButtonVariant = "primary" | "outlined" | "ghost";
+type ButtonSize = "sm" | "md" | "lg";
+
+interface ButtonProps {
+  href?: string;
+  children: React.ReactNode;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  className?: string;
+  download?: boolean | string;
+  type?: "button" | "submit" | "reset";
+  onClick?: () => void;
+  disabled?: boolean;
+}
+
+function ButtonLabel({ children }: { children: React.ReactNode }) {
+  const { pending } = useLinkStatus();
+
+  if (pending) {
+    return (
+      <span
+        className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+        role="status"
+        aria-label="Loading"
+      />
+    );
+  }
+
+  return <>{children}</>;
+}
+
+const variantStyles: Record<ButtonVariant, string> = {
+  primary:
+    "bg-[var(--color-accent)] text-[var(--color-bg)] hover:glow hover:bg-[var(--color-accent-secondary)]",
+  outlined:
+    "border border-[var(--color-border)] text-[var(--color-text-primary)] hover:border-[var(--color-border-hover)] hover:text-[var(--color-accent)]",
+  ghost:
+    "text-[var(--color-text-secondary)] hover:text-[var(--color-accent)]",
+};
+
+const sizeStyles: Record<ButtonSize, string> = {
+  sm: "px-3 py-2 text-sm",
+  md: "px-5 py-3 text-sm",
+  lg: "px-6 py-3 text-base",
+};
+
+export function Button({
+  href,
+  children,
+  variant = "primary",
+  size = "md",
+  className,
+  download,
+  type = "button",
+  onClick,
+  disabled,
+}: ButtonProps) {
+  const classes = cn(
+    "inline-flex min-h-[44px] items-center justify-center rounded-full font-semibold tracking-wide transition-all duration-200 disabled:pointer-events-none disabled:opacity-50",
+    variantStyles[variant],
+    sizeStyles[size],
+    className,
+  );
+
+  if (href && download) {
+    return (
+      <a href={href} download={download} className={classes}>
+        {children}
+      </a>
+    );
+  }
+
+  if (href) {
+    return (
+      <Link href={href} className={classes}>
+        <ButtonLabel>{children}</ButtonLabel>
+      </Link>
+    );
+  }
+
+  return (
+    <button type={type} onClick={onClick} disabled={disabled} className={classes}>
+      {children}
+    </button>
+  );
+}
