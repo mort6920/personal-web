@@ -22,12 +22,12 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section className="relative isolate min-h-screen overflow-hidden">
-      {/* Main Hero Content: Exactly in its original centered position */}
-      <div className="relative z-20 flex min-h-[100vh] items-center">
-        <div className="container-width flex w-full flex-col items-center justify-center px-4 py-12 text-center sm:px-6">
+    <section className="relative isolate min-h-[100dvh] overflow-hidden">
+      {/* Main Hero Content */}
+      <div className="relative z-20 flex min-h-[100dvh] items-center justify-center pt-[calc(var(--nav-height)+2.5rem)] pb-14 sm:pt-[calc(var(--nav-height)+3rem)] md:py-20">
+        <div className="container-width flex w-full flex-col items-center justify-center px-4 text-center sm:px-6">
           {/* Status Badge: auto-sizing pill with text visible on all devices */}
-          <div className="animate-hero-fade-in-up mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-accent-dim)] px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-accent)] sm:text-xs sm:tracking-[0.16em]">
+          <div className="animate-hero-fade-in-up mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-[var(--color-accent-dim)] px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-accent)] sm:text-xs sm:tracking-[0.16em]">
             <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-[#ff2b3d] shadow-[0_0_8px_rgba(255,43,61,0.6)]" />
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
