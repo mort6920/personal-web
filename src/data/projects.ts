@@ -9,7 +9,7 @@ export const projects: ProjectData[] = [
     To-Do List is a modern productivity web application designed to help users manage daily tasks, maintain focus through a built-in timer, and access various important links—all within a single, clean, and responsive interface.`,
     category: "daily",
     status: "in-progress",
-    stack: ["HTML", "CSS", "JAVASCRIPT", "Localstorage"],
+    stack: ["HTML", "CSS", "JAVASCRIPT"],
     previewImages: ["/images/to do list/to do list.png"],
     featured: true,
     githubUrl: "https://github.com/mort6920/revou-coding-camp.git",
