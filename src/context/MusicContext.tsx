@@ -37,6 +37,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const [duration, setDuration] = useState<number>(TRACKLIST[0].durationSeconds);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const userPausedRef = useRef<boolean>(false);
+  const wasPlayingBeforeHiddenRef = useRef<boolean>(false);
 
   // Baca preferensi tersimpan di localStorage saat mount
   useEffect(() => {
@@ -105,10 +106,50 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  // Hentikan lagu otomatis saat pengguna pindah tab, keluar dari browser/search engine, atau minimize aplikasi
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      if (document.hidden) {
+        // Tab tidak terlihat / user pindah tab / keluar dari aplikasi
+        if (!audio.paused) {
+          wasPlayingBeforeHiddenRef.current = true;
+          audio.pause();
+        }
+      } else {
+        // Tab kembali aktif / terlihat
+        if (wasPlayingBeforeHiddenRef.current && !userPausedRef.current) {
+          wasPlayingBeforeHiddenRef.current = false;
+          audio.play().catch(() => {});
+        }
+      }
+    };
+
+    const handlePageHide = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      wasPlayingBeforeHiddenRef.current = false;
+      audio.pause();
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pagehide", handlePageHide);
+    window.addEventListener("beforeunload", handlePageHide);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("pagehide", handlePageHide);
+      window.removeEventListener("beforeunload", handlePageHide);
+    };
+  }, []);
+
   // Dipanggil saat pengguna melakukan "tap anywhere" pada loading screen atau interaksi di mobile
   const startAudio = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return Promise.resolve();
+    if (typeof document !== "undefined" && document.hidden) return Promise.resolve();
 
     userPausedRef.current = false;
     savePreference(false);
@@ -161,7 +202,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     if (isPlaying) return;
 
     const handleGlobalUnlock = () => {
-      if (userPausedRef.current) return;
+      if (document.hidden || userPausedRef.current || wasPlayingBeforeHiddenRef.current) return;
       startAudio();
     };
 
@@ -179,10 +220,12 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     if (!audio) return;
 
     if (!audio.paused) {
+      wasPlayingBeforeHiddenRef.current = false;
       savePreference(true);
       audio.pause();
       setIsPlaying(false);
     } else {
+      wasPlayingBeforeHiddenRef.current = false;
       savePreference(false);
       const promise = audio.play();
       if (promise !== undefined) {
@@ -207,6 +250,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
+      wasPlayingBeforeHiddenRef.current = false;
       setCurrentTrack(track);
       if (track.audioSrc) {
         audio.src = track.audioSrc;
@@ -224,6 +268,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   );
 
   const pauseTrack = useCallback(() => {
+    wasPlayingBeforeHiddenRef.current = false;
     savePreference(true);
     audioRef.current?.pause();
     setIsPlaying(false);
