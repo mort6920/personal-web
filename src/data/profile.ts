@@ -45,7 +45,7 @@ export const profile = {
   /** Logo shown in navbar & footer. */
   logo: "/assets/logo wndr original.png",
   /** TODO: CV file path for the "Download CV" button. */
-  cv: "/assets/cv/cvwindra.pdf",
+  cv: "/assets/cv/cv windra.pdf",
 
   // ---------- Hero ----------
   /**
