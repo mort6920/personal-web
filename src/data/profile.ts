@@ -33,7 +33,7 @@ export const profile = {
 
   // ---------- Site ----------
   /** TODO: Production domain (overridden by NEXT_PUBLIC_SITE_URL env). */
-  siteUrl: "",
+  siteUrl: "windraliansyah.site",
   /** TODO: Google Search Console verification token, or "" to disable. */
   googleVerification: "",
 
@@ -45,7 +45,7 @@ export const profile = {
   /** Logo shown in navbar & footer. */
   logo: "/assets/logo wndr original.png",
   /** TODO: CV file path for the "Download CV" button. */
-  cv: "/assets/cv/cv windra.pdf",
+  cv: "/assets/cv/cv windra1.pdf",
 
   // ---------- Hero ----------
   /**
@@ -95,7 +95,7 @@ export const profile = {
   /** TODO: GitHub username — used for the total-commits stat. */
   githubUsername: "mort6920",
   /** TODO: "<user>/<repo>" of this website — used for the footer commit link. */
-  siteRepo: "",
+  siteRepo: "https://github.com/mort6920/personal-web.git",
   /** TODO: Social links shown in footer & contact section. */
   socialLinks: [
     { label: "GitHub", href: "https://github.com/mort6920" },
