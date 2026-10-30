@@ -19,7 +19,7 @@ export const certificates: CertificateData[] = [
     issuer: "Issued by freecodecamp",
     category: "web",
     status: "completed",
-    summary: "Earned the JavaScript Developer Certification issued by freeCodeCamp. This professional certification represents the completion of the equivalent of 300 hours of programming training and validates a deep mastery of the logic, structure, and development processes based on the JavaScript programming language.",
+    summary: "Earned the JavaScript Developer Certification issued by freeCodeCamp. This professional certification validates a comprehensive mastery of programming logic, data structures, and modern development processes using the JavaScript programming language.",
     date: "2026",
     previewImage: "/certificates/js.png",
     credentialUrl: "https://drive.google.com/file/d/1kB-NFAHrrKqplvgDm2gDvJHIOpVmFbhX/view?usp=drive_link"

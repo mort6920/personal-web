@@ -26,7 +26,7 @@ export function SkillsSection() {
         <SectionHeader
           label="skills"
           title="The Architecture"
-          description="Core technologies that I use and study to automate complex workflows."
+          description="Core technologies that I study and use it."
         />
 
         <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,6fr)_minmax(0,3fr)] lg:items-start xl:gap-8">
