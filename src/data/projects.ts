@@ -4,8 +4,7 @@ export const projects: ProjectData[] = [
   {
     id: "assetra",
     title: "To do list",
-    description: `A personal productivity dashboard built using plain HTML, CSS, and JavaScript — no frameworks, no backend. 
-
+    description: `A personal productivity dashboard built using plain HTML, CSS, and JavaScript — no frameworks, no backend.
     To-Do List is a modern productivity web application designed to help users manage daily tasks, maintain focus through a built-in timer, and access various important links—all within a single, clean, and responsive interface.`,
     category: "daily",
     status: "in-progress",
@@ -19,7 +18,7 @@ export const projects: ProjectData[] = [
     id: "panen-pas",
     title: "weather app",
     description:
-      `Weather App is a web-based weather forecasting application developed as one of the key challenges for the FreeCodeCamp JavaScript Certification. The application is designed to fetch and display real-time weather data through an intuitive and responsive interface.`,
+      `A simple weather app for checking weather conditions in several locations that the developer frequents. Created as part of a mini-project. The application is designed to fetch and display real-time weather data through an intuitive and responsive interface.`,
     category: "daily",
     status: "live",
     stack: ["html", "css", "javascript"],
@@ -32,7 +31,7 @@ export const projects: ProjectData[] = [
     id: "bebas-qc",
     title: "Drum machine",
     description:
-      `Drum Machine is an interactive, web-based music application developed as part of the requirements for the FreeCodeCamp JavaScript Certification challenge. The application allows users to play various drum sound samples in real-time by clicking on the interface or pressing keys on their keyboard.`,
+      `Beat Box lets you trigger drum sounds either by clicking the pads on screen or pressing the corresponding keys on your keyboard.`,
     category: "web-development",
     status: "in-progress",
     stack: ["html", "css", "javascript"],

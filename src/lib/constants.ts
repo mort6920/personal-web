@@ -4,8 +4,19 @@ import { fetchGithubCommit } from "./github-commit-fetch";
 
 export const OWNER_NAME = profile.shortName;
 
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || profile.siteUrl || "http://localhost:3000";
+function normalizeSiteUrl(raw: string): string {
+  const value = raw.trim().replace(/\/+$/, "");
+  const withProtocol = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+  try {
+    return new URL(withProtocol).origin;
+  } catch {
+    return "http://localhost:3000";
+  }
+}
+
+export const SITE_URL = normalizeSiteUrl(
+  process.env.NEXT_PUBLIC_SITE_URL || profile.siteUrl || "http://localhost:3000"
+);
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Home", href: "/" },

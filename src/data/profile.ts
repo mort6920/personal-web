@@ -33,7 +33,7 @@ export const profile = {
 
   // ---------- Site ----------
   /** TODO: Production domain (overridden by NEXT_PUBLIC_SITE_URL env). */
-  siteUrl: "windraliansyah.site",
+  siteUrl: "https://windraliansyah.site",
   /** TODO: Google Search Console verification token, or "" to disable. */
   googleVerification: "",
 
