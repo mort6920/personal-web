@@ -12,7 +12,7 @@ export default async function BlogPage() {
         title="Blog & Field Reports"
         description="Engineering logs, field experiences, network monitoring, and system optimization writeups."
       />
-      <section className="section-padding pt-0">
+      <section className="px-6 pb-8 pt-0">
         <div className="container-width grid gap-4 lg:grid-cols-2 lg:gap-6">
           {posts.map((post) => (
             <article key={post.slug} className="group glass rounded-2xl p-6 transition-transform duration-200 hover:scale-[1.01] hover:border-[var(--color-border-hover)]">

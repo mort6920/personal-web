@@ -15,6 +15,7 @@ const CATEGORY_LABELS: Record<CertificateCategory, string> = {
   web: "Web Development",
   security: "Security",
   community: "Community and Leadership",
+  engineering: "Engineering",
 };
 
 export default function CertificatesPage() {
@@ -45,9 +46,9 @@ export default function CertificatesPage() {
       <PageHeader
         label="certificates"
         title="Certificates"
-        description="Verifiable credentials across web development, security, and community leadership, filterable by category."
+        description="Verifiable credentials across web development and engineering, filterable by category."
       />
-      <section className="section-padding pt-0">
+      <section className="px-6 pb-8 pt-0">
         <div className="container-width">
           <div className="mb-6 overflow-x-auto">
             <div className="flex min-w-max gap-2">

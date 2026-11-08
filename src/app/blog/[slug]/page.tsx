@@ -41,7 +41,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <>
       <PageHeader label="writeup" title={post.title} description={post.excerpt} />
-      <section className="section-padding pt-0">
+      <section className="px-6 pb-8 pt-0">
         <div className="container-width">
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <span className="rounded-full border border-[var(--color-border)] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--color-text-secondary)]">

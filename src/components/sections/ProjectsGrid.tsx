@@ -45,7 +45,7 @@ export function ProjectsGrid() {
   }, [activeFilter]);
 
   return (
-    <section className="section-padding pt-0">
+    <section className="px-6 pb-8 pt-0">
       <div className="container-width">
         <div className="mb-6 overflow-x-auto">
           <div className="flex min-w-max gap-2">

@@ -36,6 +36,8 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(TRACKLIST[0].durationSeconds);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const gainNodeRef = useRef<GainNode | null>(null);
   const userPausedRef = useRef<boolean>(false);
   const wasPlayingBeforeHiddenRef = useRef<boolean>(false);
 
@@ -122,7 +124,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         // Tab kembali aktif / terlihat
         if (wasPlayingBeforeHiddenRef.current && !userPausedRef.current) {
           wasPlayingBeforeHiddenRef.current = false;
-          audio.play().catch(() => {});
+          audio.play().catch(() => { });
         }
       }
     };
@@ -145,6 +147,35 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  const ensureAudioBoost = useCallback((audio: HTMLAudioElement) => {
+    if (typeof window === "undefined") return;
+    const AudioCtx =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    if (!AudioCtx) return;
+
+    try {
+      if (!audioCtxRef.current) {
+        const ctx = new AudioCtx();
+        const source = ctx.createMediaElementSource(audio);
+        const gainNode = ctx.createGain();
+
+        gainNode.gain.value = 1.5; // 1.5 = 150% volume
+        source.connect(gainNode);
+        gainNode.connect(ctx.destination);
+
+        audioCtxRef.current = ctx;
+        gainNodeRef.current = gainNode;
+      } else if (gainNodeRef.current) {
+        gainNodeRef.current.gain.value = 1.5;
+      }
+
+      if (audioCtxRef.current.state === "suspended") {
+        audioCtxRef.current.resume().catch(() => { });
+      }
+    } catch { }
+  }, []);
+
   // Dipanggil saat pengguna melakukan "tap anywhere" pada loading screen atau interaksi di mobile
   const startAudio = useCallback(() => {
     const audio = audioRef.current;
@@ -154,20 +185,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     userPausedRef.current = false;
     savePreference(false);
 
-    // Buka kunci AudioContext untuk mesin audio browser mobile
-    if (typeof window !== "undefined") {
-      const AudioCtx =
-        window.AudioContext ||
-        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      if (AudioCtx) {
-        try {
-          const ctx = new AudioCtx();
-          if (ctx.state === "suspended") {
-            ctx.resume().catch(() => {});
-          }
-        } catch {}
-      }
-    }
+    ensureAudioBoost(audio);
 
     const targetSrc = currentTrack.audioSrc || "/song/entombed-2.mp3";
     if (!audio.src || !audio.src.includes("entombed")) {
@@ -175,14 +193,14 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     }
 
     try {
-      audio.volume = 0.8;
-    } catch {}
+      audio.volume = 1.0;
+    } catch { }
 
     try {
       if (audio.readyState === 0) {
         audio.load();
       }
-    } catch {}
+    } catch { }
 
     const promise = audio.play();
     if (promise !== undefined) {
@@ -195,7 +213,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         });
     }
     return Promise.resolve();
-  }, [currentTrack.audioSrc, savePreference]);
+  }, [currentTrack.audioSrc, ensureAudioBoost, savePreference]);
 
   // Listener interaksi global di mobile: jika lagu belum berjalan, sentuhan/klik berikutnya akan memutar
   useEffect(() => {
@@ -227,6 +245,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     } else {
       wasPlayingBeforeHiddenRef.current = false;
       savePreference(false);
+      ensureAudioBoost(audio);
       const promise = audio.play();
       if (promise !== undefined) {
         promise
@@ -238,7 +257,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
           });
       }
     }
-  }, [savePreference]);
+  }, [ensureAudioBoost, savePreference]);
 
   const playTrack = useCallback(
     (track: Track) => {
@@ -256,6 +275,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         audio.src = track.audioSrc;
         audio.currentTime = 0;
         savePreference(false);
+        ensureAudioBoost(audio);
         audio
           .play()
           .then(() => setIsPlaying(true))
@@ -264,7 +284,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
           });
       }
     },
-    [currentTrack.id, togglePlay, savePreference]
+    [currentTrack.id, ensureAudioBoost, togglePlay, savePreference]
   );
 
   const pauseTrack = useCallback(() => {
@@ -334,10 +354,10 @@ const defaultMusicContext: MusicContextType = {
   activeLyricText: "...",
   lyrics: ENTOMBED_LYRICS,
   startAudio: () => Promise.resolve(),
-  togglePlay: () => {},
-  playTrack: () => {},
-  pauseTrack: () => {},
-  seekTo: () => {},
+  togglePlay: () => { },
+  playTrack: () => { },
+  pauseTrack: () => { },
+  seekTo: () => { },
 };
 
 export function useMusic() {

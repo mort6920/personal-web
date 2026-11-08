@@ -3,6 +3,18 @@ import { CertificateData } from "@/types";
 export const certificates: CertificateData[] = [
   {
     id: "cert-slot-1",
+    title: "Certified Computer & Network Engineering",
+    issuer: "Issued by BNSP",
+    category: "engineering",
+    status: "completed",
+    summary: "Achieved the Certificate of Competence in Computer and Network Engineering (Teknik Komputer dan Jaringan - KKNI Level II) issued by the Badan Nasional Sertifikasi Profesi (BNSP), the Indonesian Professional Certification Authority. This nationally recognized certification validates competency in the field of Network Infrastructure, Routing & Switching Configuration, and Network Security Monitoring.",
+    date: "2026",
+    previewImage: "/certificates/bnsp.png",
+    credentialUrl: "https://drive.google.com/file/d/11tnMIT9PrOYkyGUM9_U2scrTRc3MRUjx/view?usp=sharing"
+  },
+
+  {
+    id: "cert-slot-2",
     title: "Intro to software engineering",
     issuer: "Issued by RevoU",
     category: "web",
@@ -14,7 +26,7 @@ export const certificates: CertificateData[] = [
   },
 
   {
-    id: "cert-slot-2",
+    id: "cert-slot-3",
     title: "Javascript",
     issuer: "Issued by freecodecamp",
     category: "web",

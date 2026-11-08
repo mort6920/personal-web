@@ -1,4 +1,4 @@
-export type ProjectCategory = "web-development" | "security" | "ctf" | "daily";
+export type ProjectCategory = "web-development" | "security" | "ctf" | "utility";
 
 export type ProjectStatus = "live" | "in-progress" | "archived";
 
@@ -20,7 +20,7 @@ export interface ProjectData {
   devpostUrl?: string;
 }
 
-export type CertificateCategory = "web" | "security" | "community";
+export type CertificateCategory = "web" | "security" | "community" | "engineering";
 
 export type CertificateStatus = "completed" | "in-progress" | "planned";
 

@@ -40,7 +40,7 @@ export const CATEGORY_LABELS = {
   "web-development": "Web Development",
   security: "Security",
   ctf: "CTF",
-  daily: "Daily",
+  utility: "Utility & Tools",
 } as const;
 
 export const NAVBAR_BOOT_DEBUG =

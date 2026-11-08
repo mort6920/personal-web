@@ -6,7 +6,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ label, title, description }: PageHeaderProps) {
   return (
-    <header className="section-padding pb-10 pt-[calc(var(--nav-height)+3rem)]">
+    <header className="px-6 pb-6 pt-24 md:pb-8">
       <div className="container-width">
         <p className="mb-3 font-mono text-xs uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
           {`// ${label}`}

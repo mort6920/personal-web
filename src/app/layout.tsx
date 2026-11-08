@@ -38,8 +38,8 @@ export const metadata: Metadata = {
     ? { google: profile.googleVerification }
     : undefined,
   icons: {
-    icon: profile.logo,
-    apple: profile.logo,
+    icon: "/icon.png",
+    apple: "/icon.png",
   },
   openGraph: {
     title: `${profile.fullName} | ${profile.role}`,

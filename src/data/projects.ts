@@ -6,7 +6,7 @@ export const projects: ProjectData[] = [
     title: "To do list",
     description: `A personal productivity dashboard built using plain HTML, CSS, and JavaScript — no frameworks, no backend.
     To-Do List is a modern productivity web application designed to help users manage daily tasks, maintain focus through a built-in timer, and access various important links—all within a single, clean, and responsive interface.`,
-    category: "daily",
+    category: "web-development",
     status: "in-progress",
     stack: ["HTML", "CSS", "JAVASCRIPT"],
     previewImages: ["/images/to do list/to do list.png"],
@@ -19,7 +19,7 @@ export const projects: ProjectData[] = [
     title: "weather app",
     description:
       `A simple weather app for checking weather conditions in several locations that the developer frequents. Created as part of a mini-project. The application is designed to fetch and display real-time weather data through an intuitive and responsive interface.`,
-    category: "daily",
+    category: "utility",
     status: "live",
     stack: ["html", "css", "javascript"],
     previewImages: ["/images/weather app/wa.png"],
