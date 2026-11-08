@@ -160,7 +160,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         const source = ctx.createMediaElementSource(audio);
         const gainNode = ctx.createGain();
 
-        gainNode.gain.value = 1.5; // 1.5 = 150% volume
+        gainNode.gain.value = 2.0; // 2.0 = 200% volume
         source.connect(gainNode);
         gainNode.connect(ctx.destination);
 
