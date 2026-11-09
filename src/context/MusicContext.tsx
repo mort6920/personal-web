@@ -12,7 +12,7 @@ import React, {
 import { ENTOMBED_LYRICS, LyricLine, Track, TRACKLIST } from "@/data/music";
 
 const STORAGE_KEY = "wndr_audio_preference";
-const AUDIO_BOOST_GAIN = 1.2; // 1.2 = 120% (tanpa over-gain di Web Audio, karena MP3 sudah +9dB)
+const AUDIO_BOOST_GAIN = 1.32; // 1.32 = 132% (tanpa over-gain di Web Audio, karena MP3 sudah +9dB)
 
 interface MusicContextType {
   isPlaying: boolean;
