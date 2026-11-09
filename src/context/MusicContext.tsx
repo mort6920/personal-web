@@ -13,7 +13,7 @@ import { ENTOMBED_LYRICS, LyricLine, Track, TRACKLIST } from "@/data/music";
 
 const STORAGE_KEY = "wndr_audio_preference";
 const MOBILE_AUDIO_GAIN = 1.32;  // 1.32 = 132% untuk versi mobile
-const DESKTOP_AUDIO_GAIN = 0.45; // 0.45 = 45% untuk versi desktop (ubah angka ini untuk mengatur volume desktop)
+const DESKTOP_AUDIO_GAIN = 0.30; // 0.30 = 30% untuk versi desktop (ubah angka ini untuk mengatur volume desktop)
 
 function getTargetAudioGain(): number {
   if (typeof window === "undefined") return DESKTOP_AUDIO_GAIN;
