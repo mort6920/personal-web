@@ -12,6 +12,7 @@ import React, {
 import { ENTOMBED_LYRICS, LyricLine, Track, TRACKLIST } from "@/data/music";
 
 const STORAGE_KEY = "wndr_audio_preference";
+const AUDIO_BOOST_GAIN = 1.5; // File MP3 sudah dinaikkan +15dB secara lossless
 
 interface MusicContextType {
   isPlaying: boolean;
@@ -160,14 +161,14 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
         const source = ctx.createMediaElementSource(audio);
         const gainNode = ctx.createGain();
 
-        gainNode.gain.value = 4.0; // 4.0 = 400% volume
+        gainNode.gain.value = AUDIO_BOOST_GAIN;
         source.connect(gainNode);
         gainNode.connect(ctx.destination);
 
         audioCtxRef.current = ctx;
         gainNodeRef.current = gainNode;
       } else if (gainNodeRef.current) {
-        gainNodeRef.current.gain.value = 1.5;
+        gainNodeRef.current.gain.value = AUDIO_BOOST_GAIN;
       }
 
       if (audioCtxRef.current.state === "suspended") {
@@ -187,7 +188,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
     ensureAudioBoost(audio);
 
-    const targetSrc = currentTrack.audioSrc || "/song/entombed-2.mp3";
+    const targetSrc = currentTrack.audioSrc || "/song/entombed-2.mp3?v=2";
     if (!audio.src || !audio.src.includes("entombed")) {
       audio.src = targetSrc;
     }
@@ -336,7 +337,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     <MusicContext.Provider value={value}>
       <audio
         ref={audioRef}
-        src={currentTrack.audioSrc || "/song/entombed-2.mp3"}
+        src={currentTrack.audioSrc || "/song/entombed-2.mp3?v=2"}
         playsInline
         preload="auto"
       />
