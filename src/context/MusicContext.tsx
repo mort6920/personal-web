@@ -12,7 +12,16 @@ import React, {
 import { ENTOMBED_LYRICS, LyricLine, Track, TRACKLIST } from "@/data/music";
 
 const STORAGE_KEY = "wndr_audio_preference";
-const AUDIO_BOOST_GAIN = 1.32; // 1.32 = 132% (tanpa over-gain di Web Audio, karena MP3 sudah +9dB)
+const MOBILE_AUDIO_GAIN = 1.32;  // 1.32 = 132% untuk versi mobile
+const DESKTOP_AUDIO_GAIN = 0.45; // 0.45 = 45% untuk versi desktop (ubah angka ini untuk mengatur volume desktop)
+
+function getTargetAudioGain(): number {
+  if (typeof window === "undefined") return DESKTOP_AUDIO_GAIN;
+  const isMobile =
+    window.matchMedia("(max-width: 1023px)").matches ||
+    window.matchMedia("(pointer: coarse)").matches;
+  return isMobile ? MOBILE_AUDIO_GAIN : DESKTOP_AUDIO_GAIN;
+}
 
 interface MusicContextType {
   isPlaying: boolean;
@@ -156,19 +165,20 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     if (!AudioCtx) return;
 
     try {
+      const targetGain = getTargetAudioGain();
       if (!audioCtxRef.current) {
         const ctx = new AudioCtx();
         const source = ctx.createMediaElementSource(audio);
         const gainNode = ctx.createGain();
 
-        gainNode.gain.value = AUDIO_BOOST_GAIN;
+        gainNode.gain.value = targetGain;
         source.connect(gainNode);
         gainNode.connect(ctx.destination);
 
         audioCtxRef.current = ctx;
         gainNodeRef.current = gainNode;
       } else if (gainNodeRef.current) {
-        gainNodeRef.current.gain.value = AUDIO_BOOST_GAIN;
+        gainNodeRef.current.gain.value = targetGain;
       }
 
       if (audioCtxRef.current.state === "suspended") {
