@@ -12,7 +12,7 @@ import React, {
 import { ENTOMBED_LYRICS, LyricLine, Track, TRACKLIST } from "@/data/music";
 
 const STORAGE_KEY = "wndr_audio_preference";
-const AUDIO_BOOST_GAIN = 1.5; // File MP3 sudah dinaikkan +15dB secara lossless
+const AUDIO_BOOST_GAIN = 1.0; // 1.0 = 100% (tanpa over-gain di Web Audio, karena MP3 sudah +9dB)
 
 interface MusicContextType {
   isPlaying: boolean;
@@ -188,7 +188,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
 
     ensureAudioBoost(audio);
 
-    const targetSrc = currentTrack.audioSrc || "/song/entombed-2.mp3?v=2";
+    const targetSrc = currentTrack.audioSrc || "/song/entombed-2.mp3?v=3";
     if (!audio.src || !audio.src.includes("entombed")) {
       audio.src = targetSrc;
     }
@@ -337,7 +337,7 @@ export function MusicProvider({ children }: { children: React.ReactNode }) {
     <MusicContext.Provider value={value}>
       <audio
         ref={audioRef}
-        src={currentTrack.audioSrc || "/song/entombed-2.mp3?v=2"}
+        src={currentTrack.audioSrc || "/song/entombed-2.mp3?v=3"}
         playsInline
         preload="auto"
       />
