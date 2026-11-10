@@ -20,7 +20,7 @@ export const projects: ProjectData[] = [
     description:
       `A simple weather app for checking weather conditions in several locations that the developer frequents. Created as part of a mini-project. The application is designed to fetch and display real-time weather data through an intuitive and responsive interface.`,
     category: "utility",
-    status: "live",
+    status: "in-progress",
     stack: ["html", "css", "javascript"],
     previewImages: ["/images/weather app/wa.png"],
     featured: true,

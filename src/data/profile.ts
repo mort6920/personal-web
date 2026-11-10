@@ -39,7 +39,7 @@ export const profile = {
 
   // ---------- Media ----------
   /** TODO: Profile photo path (portrait, approx. 2:3). */
-  photo: "/assets/windra.webp",
+  photo: "/assets/potogw2.jpeg",
   photoWidth: 650,
   photoHeight: 975,
   /** Logo shown in navbar & footer. */
