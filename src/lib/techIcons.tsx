@@ -37,6 +37,10 @@ import {
   SiGooglecloud,
   SiCisco,
   SiMikrotik,
+  SiNvidia,
+  SiAmd,
+  SiGithub,
+  SiObsstudio,
 } from "react-icons/si";
 
 import {
@@ -45,8 +49,18 @@ import {
 
 import {
   FaJava,
-  FaFileWord
+  FaFileWord,
+  FaWindows,
 } from "react-icons/fa";
+
+import {
+  VscVscode,
+} from "react-icons/vsc";
+
+import {
+  LuCpu,
+  LuSquareTerminal,
+} from "react-icons/lu";
 
 export type TechIconConfig = {
   icon: IconType;
@@ -129,12 +143,20 @@ export const techIcons: Record<string, TechIconConfig> = {
   wireshark: { icon: SiWireshark, label: "Wireshark", color: "var(--brand-wireshark)" },
   burpsuite: { icon: SiBurpsuite, label: "Burp Suite", color: "var(--brand-burpsuite)" },
   hivemq: { icon: SiHivemq, label: "HiveMQTT", color: "var(--brand-hivemq)" },
-  sql: { icon: FiDatabase, label: "SQL", color: "var(--color-accent)" },
-  html: { icon: SiHtml5, label: "HTML", color: "var(--brand-html)" },
-  css: { icon: SiCss, label: "CSS", color: "var(--brand-css)" },
-  javascript: { icon: SiJavascript, label: "Javascript", color: "var(--brand-javascript)" },
-  cisco: { icon: SiCisco, label: "Cisco", color: "var(--brand-cisco)" },
-  mikro: { icon: SiMikrotik, label: "MikroTik", color: "var(--brand-mikrotik)" },
-  mikrotik: { icon: SiMikrotik, label: "MikroTik", color: "var(--brand-mikrotik)" },
-  word: { icon: FaFileWord, label: "Word", color: "var(--brand-word)" },
+  sql: { icon: FiDatabase, label: "SQL", color: "var(--brand-sql, #F59E0B)" },
+  html: { icon: SiHtml5, label: "HTML", color: "var(--brand-html, #E44D26)" },
+  css: { icon: SiCss, label: "CSS", color: "var(--brand-css, #663399)" },
+  javascript: { icon: SiJavascript, label: "Javascript", color: "var(--brand-javascript, #F0DB4F)" },
+  cisco: { icon: SiCisco, label: "Cisco", color: "var(--brand-cisco, #1BA0D7)" },
+  mikro: { icon: SiMikrotik, label: "MikroTik", color: "var(--brand-mikrotik, #EE3124)" },
+  mikrotik: { icon: SiMikrotik, label: "MikroTik", color: "var(--brand-mikrotik, #EE3124)" },
+  word: { icon: FaFileWord, label: "Word", color: "var(--brand-word, #2B579A)" },
+  windows: { icon: FaWindows, label: "Windows", color: "var(--brand-windows, #00A4EF)" },
+  powershell: { icon: LuSquareTerminal, label: "PowerShell", color: "var(--brand-powershell, #5391FE)" },
+  bios: { icon: LuCpu, label: "BIOS/UEFI", color: "var(--brand-bios, #00E5A0)" },
+  nvidia: { icon: SiNvidia, label: "NVIDIA", color: "var(--brand-nvidia, #76B900)" },
+  amd: { icon: SiAmd, label: "AMD", color: "var(--brand-amd, #FF3333)" },
+  github: { icon: SiGithub, label: "GitHub", color: "var(--brand-github, #A855F7)" },
+  vscode: { icon: VscVscode, label: "VS Code", color: "var(--brand-vscode, #23A9F2)" },
+  obs: { icon: SiObsstudio, label: "OBS Studio", color: "#FFFFFF" },
 };

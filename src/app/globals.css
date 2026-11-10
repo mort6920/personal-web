@@ -58,6 +58,15 @@
   --brand-cisco: #1BA0D7;
   --brand-mikrotik: #EE3124;
   --brand-word: #2B579A;
+  --brand-windows: #00A4EF;
+  --brand-powershell: #5391FE;
+  --brand-bios: #00E5A0;
+  --brand-nvidia: #76B900;
+  --brand-amd: #FF3333;
+  --brand-github: #A855F7;
+  --brand-vscode: #23A9F2;
+  --brand-obs: #FFFFFF;
+  --brand-sql: #F59E0B;
   --max-width: 1200px;
   --nav-height: 65px;
   --font-body: var(--font-geist-sans);

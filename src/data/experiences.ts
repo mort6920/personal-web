@@ -3,42 +3,43 @@ import { TimelineItem } from "@/types";
 export const timelineItems: TimelineItem[] = [
     {
         id: "google-sa",
-        title: "Mochibot IoT Project Developer",
-        org: "IoT Group Project",
-        period: "January 2026",
+        title: "Self-Taught Streamer & Broadcaster",
+        org: "YouTube",
+        period: "May 2023 – Jul 2026",
         highlights: [
-            "Designing and implementing Internet of Things (IoT)-based devices in collaboration with a team.",
-            "Integrating hardware components with basic programming logic to enable automated system functions."
+            "Started as a self-taught gaming YouTuber in 2023, learning recording, editing, and audio routing with minimal gear.",
+            "Restarted live streaming in Aug 2025 with OBS Studio, finding stable settings for a mid-range PC and improving mic quality with a sound card."
         ],
     },
     {
         id: "cs-sp",
-        title: "Vocational Competency Examination (UKK) for Computer and Network Engineering (TKJ)",
-        org: "Vocational High School (SMK) - Computer and Network Engineering",
-        period: "May 2026",
+        title: "IT Foundations: TKJ & Internship",
+        org: "Menara 165 & Vocational High School",
+        period: "Jul 2025 – May 2026",
         highlights: [
-            "Completed LAN cable crimping tests, MikroTik router configuration, and Cisco topology mapping.",
-            "Accelerated the understanding of the fundamentals of physical network infrastructure and system configuration."
+            "Interned in a corporate server environment: fiber cabling, network hardware, GPU replacement, LAN crimping, and printer repair.",
+            "Assisted senior IT staff in diagnosing a building-wide internet outage.",
+            "Passed the TKJ competency exam (LAN crimping, MikroTik, Cisco) and earned the BNSP certificate."
         ],
     },
     {
         id: "cs-hcktn",
-        title: "Device Tweaker & Remote Optimizer",
-        org: "System Optimization Service (Laptop/PC)",
-        period: "2026 - PRESENT",
+        title: "Device Optimization Specialist",
+        org: "Remote",
+        period: "Jul 2026 – Present",
         highlights: [
-            "Independently handle device tweaking and system optimization tasks to enhance hardware performance.",
-            "Perform troubleshooting, memory allocation, and system tuning to ensure responsive operation without bottlenecks."
+            "Optimized 100+ Windows devices: debloating, registry and service tuning, driver and GPU setup, and BIOS configuration (CSM, Secure Boot).",
+            "Trained team members and developed a faster optimization workflow."
         ],
     },
     {
         id: "pufa-hod",
-        title: "Coding Camp Participants & Self-Learners",
-        org: "RevoU, FreeCodeCamp & IBM Skills",
-        period: "2026 - Present",
+        title: "Software Engineering Learner",
+        org: "RevoU, freeCodeCamp, IBM SkillsBuild",
+        period: "Oct 2026 – Present",
         highlights: [
-            "Complete a web engineering mini-project and master the Git/GitHub workflow, as well as the integration of AI for coding.",
-            "Earn a JavaScript certification and explore the fundamentals of cybersecurity through IBM SkillsBuild.",
+            "Built a web mini-project and learned the Git/GitHub workflow with AI-assisted coding.",
+            "Earned the freeCodeCamp JavaScript certification and started cybersecurity fundamentals."
         ],
     },
 ];

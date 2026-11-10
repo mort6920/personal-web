@@ -27,9 +27,9 @@ export const profile = {
   /** TODO: Full name — used in SEO title, JSON-LD, OG image alt. */
   fullName: "windra liansyah",
   /** TODO: Short / nickname — used in hero, about, footer, alt texts. */
-  shortName: "windra",
+  shortName: "Windra",
   /** TODO: Role / tagline — shown under the hero name and in SEO. */
-  role: "Technical IT and device optimizer",
+  role: "IT Engineer | AI-Native Workflow",
 
   // ---------- Site ----------
   /** TODO: Production domain (overridden by NEXT_PUBLIC_SITE_URL env). */
@@ -59,29 +59,29 @@ export const profile = {
   ],
   /** TODO: Hero intro paragraph. */
   heroIntro:
-    "Technical IT and A Device Optimization Engineer specializing in system performance across the entire spectrum from low-level to high-level operations. I build robust and responsive processing mechanisms, with a focus on automated tune-ups and real-time memory optimization.",
+    "IT Engineer with a degree in Computer and Network Engineering. combined my knowledge of hardware and networking fundamentals with AI-assisted workflows for troubleshooting, device optimization, and web development. Using AI as a tool to streamline my work. I always verify the results and take full responsibility for the technical decisions.",
 
   // ---------- About (home page) ----------
   /** TODO */
   aboutTitle: "Just a tech.",
   /** TODO */
   aboutParagraphs: [
-    "My approach is simple: maximize hardware efficiency without compromising system durability. I thrive on complex technical challenges where hardware integration, BIOS/firmware configuration, and real-time system refinement work in tandem.",
-    "I combine expertise in hardware assembly and diagnostics with software optimization techniques to deliver systems that are responsive, stable, and free from bottlenecks.",
+    "My approach is simple: get the most out of the hardware without sacrificing stability. I enjoy troubleshooting problems that span hardware, BIOS settings, drivers, and system configuration.",
+    "I combine hands-on experience in PC assembly and diagnostics with software optimization, to make systems faster, more stable, and less prone to bottlenecks. I configure BIOS settings and use AI to speed up diagnosis, verifying each fix before applying it.",
   ],
 
   // ---------- Detailed About (/about page) ----------
   /** TODO */
   detailedAboutParagraphs: [
-    "Hi, I’m Windra. I am an IT Engineer and Device Optimizer with a background in Computer Engineering and Networking (TKJ), dedicated to maximizing hardware performance and designing efficient systems. My approach to device optimization is rooted in a deep understanding of both hardware and software architecture, ensuring that every system I fine-tune remains responsive, stable, and free from bottlenecks.",
-    "Whether I am performing remote hardware optimization, exploring software engineering, or delving into cybersecurity, my focus remains on enhancing system efficiency and performance reliability. Beyond my technical routine, I enjoy solving complex problems where physical architecture, execution speed, and security intersect.",
-    "Through hands-on professional experience and intensive self-directed learning, I have developed the ability to adapt quickly and resolve technical challenges under pressure. I am committed to continuously increasing my professional value, leveraging modern technology and an efficiency-driven mindset to deliver robust, reliable device solutions.",
+    "Hi, I'm Windra, an IT Engineer and Device Optimizer with a background in Computer Engineering and Networking. I've optimized Windows devices, focusing on getting the most performance out of the hardware while keeping systems stable and responsive.",
+    "My work covers motherboard BIOS configuration, driver and GPU setup, and Windows tuning such as debloating, registry, and service optimization. I mostly support clients remotely, and I also train others on optimization workflows.",
+    "I use AI as a working tool to trace errors faster and build web projects more quickly, and I verify every fix before applying it. I'm self-taught, adapt quickly, and stay professional under pressure, while continuing to learn web development and cybersecurity fundamentals.",
   ],
   /** TODO */
   timelineTitle: "Technical Developments and Track Record",
   /** TODO */
   timelineDescription:
-    "Developing technical expertise through practical field experience, self-directed learning, and accelerated software development. This timeline illustrates a journey spanning from the fundamentals of computer networking to the execution of system optimization and software engineering.",
+    "A self-taught journey from content creation and networking fundamentals to Windows optimization and software engineering.",
 
   // ---------- SEO ----------
   /** TODO */

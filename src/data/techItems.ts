@@ -11,10 +11,20 @@ export const techItems = [
   { key: "linux", label: "Linux" },
   { key: "mikro", label: "Mikrotik" },
   { key: "word", label: "Word" },
+  { key: "windows", label: "Windows" },
+  { key: "powershell", label: "PowerShell" },
+  { key: "bios", label: "BIOS/UEFI" },
+  { key: "nvidia", label: "NVIDIA" },
+  { key: "amd", label: "AMD" },
+  { key: "github", label: "GitHub" },
+  { key: "typescript", label: "TypeScript" },
+  { key: "vscode", label: "VS Code" },
+  { key: "obs", label: "OBS Studio" },
 ];
 
+
 export const securityValues = [
-  "Kernel & Resource Allocation",
-  "Latency Reduction & Response Tuning",
-  "Hardware-Software Synergy & Thermal Efficiency",
+  "System Performance Tuning",
+  "Windows Debloat & Registry Tweaks",
+  "GPU Control Panel Tuning",
 ];

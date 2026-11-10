@@ -12,7 +12,8 @@ export function SkillsSection() {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(marqueeRef, { amount: 0.2 });
 
-  const rows = [techItems.slice(0, 14), techItems.slice(14)];
+  const midpoint = Math.ceil(techItems.length / 2);
+  const rows = [techItems.slice(0, midpoint), techItems.slice(midpoint)];
 
   // Faster on mobile (shorter duration) so it still feels lively on small screens
   const trackStyles: CSSProperties[] = [
@@ -115,7 +116,7 @@ export function SkillsSection() {
               Optimizing every layer of the stack
             </h3>
             <p className="mt-3 text-sm text-[var(--color-text-secondary)] lg:text-base">
-              Beyond raw hardware specs, these are the technical lenses I apply to achieve peak device and system efficiency.
+              Optimizing devices from hardware to OS Beyond raw hardware specs, these are the areas I focus on to deliver fast, stable devices.
             </p>
             <ul className="mt-5 space-y-3">
               {securityValues.map((value) => (

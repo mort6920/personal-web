@@ -12,7 +12,8 @@ export function LongSkillsSection() {
   const marqueeRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(marqueeRef, { amount: 0.2 });
 
-  const rows = [techItems.slice(0, 14), techItems.slice(14)];
+  const midpoint = Math.ceil(techItems.length / 2);
+  const rows = [techItems.slice(0, midpoint), techItems.slice(midpoint)];
 
   // Faster on mobile (shorter duration) so it still feels lively on small screens
   const trackStyles: CSSProperties[] = [

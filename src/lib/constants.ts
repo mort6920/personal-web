@@ -50,7 +50,8 @@ export const NAVBAR_BOOT_DEBUG_MS = 5000;
 
 export const STATIC_STATS = {
   projects: "3+",
-  years: 3,
+  years: "100",
+  contactMonths: "3+",
   certificates: "99%",
 } as const;
 
@@ -67,7 +68,7 @@ export async function getStatTicker() {
     {
       id: "years",
       value: `${STATIC_STATS.years}+`,
-      description: "years experience in the IT field",
+      description: "devices I've already optimized",
       icon: "years",
     },
     {

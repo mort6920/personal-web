@@ -336,7 +336,7 @@ export function ContactSection() {
             </div>
             <div>
               <p className="m-0 font-mono text-lg uppercase tracking-[0.08em] text-[var(--color-text-primary)]">
-                {STATIC_STATS.years}+
+                {STATIC_STATS.contactMonths}
               </p>
               <p className="m-0 text-sm text-[var(--color-text-secondary)]">month</p>
             </div>
