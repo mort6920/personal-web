@@ -101,7 +101,7 @@ export const profile = {
     { label: "GitHub", href: "https://github.com/mort6920" },
     { label: "LinkedIn", href: "" },
     { label: "Email", href: "winlian44@gmail.com" },
-    { label: "Saweria", href: "https://sociabuzz.com/motca/donate" },
+    { label: "SociaBuzz", href: "https://sociabuzz.com/motca/donate" },
   ] as SocialLink[],
 
   // ---------- Contact form (Resend) ----------

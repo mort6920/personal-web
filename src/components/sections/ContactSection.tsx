@@ -14,14 +14,14 @@ const SOCIAL_ICONS: Record<string, IconType> = {
   GitHub: FiGithub,
   LinkedIn: FiLinkedin,
   Email: FiMail,
-  Saweria: FiCoffee,
+  SociaBuzz: FiCoffee,
 };
 
 const SOCIAL_DESCRIPTIONS: Record<string, string> = {
   GitHub: "Code & open-source work",
   LinkedIn: "Professional network",
   Email: "Fastest for project inquiries",
-  Saweria: "Support my work & donate",
+  SociaBuzz: "Support my work & donate",
 };
 
 type ContactFormValues = {
