@@ -68,7 +68,7 @@ export async function getStatTicker() {
     {
       id: "years",
       value: `${STATIC_STATS.years}+`,
-      description: "devices I've already optimized",
+      description: "Optimized devices",
       icon: "years",
     },
     {

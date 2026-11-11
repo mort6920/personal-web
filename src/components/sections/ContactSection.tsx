@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState, useEffect } from "react";
-import { FiExternalLink, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { FiCoffee, FiExternalLink, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { IconType } from "react-icons";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { SectionHeader } from "@/components/shared/SectionHeader";
@@ -14,12 +14,14 @@ const SOCIAL_ICONS: Record<string, IconType> = {
   GitHub: FiGithub,
   LinkedIn: FiLinkedin,
   Email: FiMail,
+  Saweria: FiCoffee,
 };
 
 const SOCIAL_DESCRIPTIONS: Record<string, string> = {
   GitHub: "Code & open-source work",
   LinkedIn: "Professional network",
   Email: "Fastest for project inquiries",
+  Saweria: "Support my work & donate",
 };
 
 type ContactFormValues = {
@@ -324,7 +326,7 @@ export function ContactSection() {
               <span className="h-2 w-2 animate-pulse rounded-full bg-[#ff2b3d] shadow-[0_0_8px_rgba(255,43,61,0.6)]" />
               <span className="text-[var(--color-text-primary)]">available · replies ~24h</span>
             </p>
-            <p className="m-0">focus: currently study cybersec</p>
+            <p className="m-0">focus: currently studying cybersec</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4 px-5 pb-5 sm:px-6">
